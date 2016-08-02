@@ -48,15 +48,16 @@ test('catch with predicate shorthand', (t) => {
   });
 });
 
-test('catch with predicate shorthand with extra properties', (t) => {
+test('catch with predicate shorthand with different properties', (t) => {
   const error = {
     code: 'ENOENT',
-    message: 'No entity found'
+    message: 'No entity found',
+    something: 'this'
   };
 
   return new Bluebird((resolve, reject) => {
     reject(error);
-}).catch({ code: 'ENOENT', message: 'No entity found' }, (e) => {
+}).catch({ message: 'No entity found', something: 'this' }, (e) => {
     t.equal(e.code, 'ENOENT');
     t.equal(e.message, 'No entity found');
   });
